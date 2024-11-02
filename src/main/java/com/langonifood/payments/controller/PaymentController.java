@@ -45,6 +45,7 @@ public class PaymentController {
     public ResponseEntity<PaymentDto> update(@NotNull @PathVariable Long id, @RequestBody @Valid PaymentDto dto){
         PaymentDto updated = service.updatePayment(id, dto);
         return ResponseEntity.ok(updated);
+        //test
     }
 
     public ResponseEntity<PaymentDto> remove(@PathVariable @NotNull Long id){

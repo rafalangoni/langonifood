@@ -4,7 +4,6 @@ import com.langonifood.payments.dto.PaymentDto;
 import com.langonifood.payments.model.Payment;
 import com.langonifood.payments.model.Status;
 import com.langonifood.payments.repository.PaymentRepository;
-import jakarta.persistence.EntityNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

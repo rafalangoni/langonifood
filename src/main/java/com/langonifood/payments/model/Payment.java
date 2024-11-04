@@ -23,7 +23,8 @@ public class Payment {
 
     @NotNull
     @Positive
-    private BigDecimal value;
+    @Column(name = "payment_value")
+    private BigDecimal paymentValue;
 
     @NotBlank
     @Size(max = 100)
@@ -31,24 +32,29 @@ public class Payment {
 
     @NotNull
     @Size(max = 16, min = 16)
-    private String number;
+    @Column(name = "cc_number")
+    private String ccNumber;
 
     @NotNull
-    @Size(max = 4, min = 4)
-    private String expiration;
+    @Size(max = 6, min = 4)
+    @Column(name = "cc_expiration")
+    private String ccExpiration;
 
     @NotNull
     @Size(max = 3, min = 3)
-    private String code;
+    @Column(name = "cc_code")
+    private String ccCode;
 
     @Enumerated(EnumType.STRING)
     @NotNull
     private Status status;
 
     @NotNull
+    @Column(name = "order_id")
     private Long orderId;
 
     @NotNull
+    @Column(name = "payment_method_id")
     private Long paymentMethodId;
 
 }

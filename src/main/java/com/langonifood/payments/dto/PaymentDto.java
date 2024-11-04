@@ -10,11 +10,11 @@ import java.math.BigDecimal;
 @Setter
 public class PaymentDto{
         private Long id;
-        private BigDecimal value;
+        private BigDecimal paymentValue;
         private String name;
-        private String number;
-        private String expiration;
-        private String code;
+        private String ccNumber;
+        private String ccExpiration;
+        private String ccCode;
         private Status status;
         private Long orderId;
         private Long paymentMethodId;

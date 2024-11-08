@@ -1,9 +1,11 @@
 package com.langonifood.payments.service;
 
 import com.langonifood.payments.dto.PaymentDto;
+import com.langonifood.payments.http.ClientOrder;
 import com.langonifood.payments.model.Payment;
 import com.langonifood.payments.model.Status;
 import com.langonifood.payments.repository.PaymentRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -20,6 +22,9 @@ public class PaymentService {
 
     @Autowired
     private ModelMapper mapper;
+
+    @Autowired
+    private ClientOrder order;
 
     public Page<PaymentDto> getAllPayments(Pageable pagination) {
         return repository
@@ -58,5 +63,26 @@ public class PaymentService {
         repository.deleteById(id);
     }
 
+    public void confirmPayment(Long id){
+        Optional<Payment> payment =repository.findById(id);
 
+        if(!payment.isPresent()){
+            throw new EntityNotFoundException();
+        }
+
+        payment.get().setStatus(Status.CONFIRMED);
+        repository.save(payment.get());
+        order.updatePayment(payment.get().getOrderId());
+    }
+
+    public void changeStatus(Long id) {
+        Optional<Payment> payment =repository.findById(id);
+
+        if(!payment.isPresent()){
+            throw new EntityNotFoundException();
+        }
+
+        payment.get().setStatus(Status.CONFIRMED_WITHOUT_INTEGRATION_WITH_ORDER);
+        repository.save(payment.get());
+    }
 }

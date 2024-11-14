@@ -43,9 +43,8 @@ public class PaymentController {
         PaymentDto payment = service.createPayment(dto);
         URI address = uriBuilder.path("/payments/{id}").buildAndExpand(payment.getId()).toUri();
 
-        Message message = new Message(("new payment with id "+payment.getId()).getBytes());
-        rabbitTemplate.send("payment.finished", message);
-
+        rabbitTemplate.convertAndSend("payments.exchange", "", payment);
+//        rabbitTemplate.convertAndSend("payment.finished", payment);
 
         return ResponseEntity.created(address).body(payment);
     }
